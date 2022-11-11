@@ -44,8 +44,8 @@ async def quiz_1(message: types.Message):
         reply_markup=markup
     )
 
-    @dp.callback_query_handler(text="button_call_1")
-    async def quiz_2(call: types.CallbackQuery):
+@dp.callback_query_handler(text="button_call_1")
+async def quiz_2(call: types.CallbackQuery):
         markup = InlineKeyboardMarkup()
         button_call_2 = InlineKeyboardButton("NEXT", callback_data='button_call_2')
         markup.add(button_call_2)
@@ -72,8 +72,8 @@ async def quiz_1(message: types.Message):
             reply_markup=markup
         )
 
-        @dp.callback_query_handler(lambda call: call.data == "button_call_2")
-        async def quiz_2(call: types.CallbackQuery):
+@dp.callback_query_handler(lambda call: call.data == "button_call_2")
+async def quiz_2(call: types.CallbackQuery):
 
             photo = open("media/cat_mBnN90j.jpg", 'rb')
             await bot.send_photo(call.from_user.id, photo=photo)
@@ -82,7 +82,10 @@ async def quiz_1(message: types.Message):
 
 @dp.message_handler()
 async def echo(message: types.Message):
-    await bot.send_message(message.from_user.id, message.text)
+    if message.text.isnumeric():
+        await bot.send_message(message.chat.id, int(message.text) ** 2)
+    else:
+        await bot.send_message(message.chat.id, message.text)
 
 
 
