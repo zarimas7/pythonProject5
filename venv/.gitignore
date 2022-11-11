@@ -6,5 +6,5 @@ venv
 __pycache__
 *.py[cod]
 *.so
-git rm --cached venv
-git rm --cached .env
+
+
